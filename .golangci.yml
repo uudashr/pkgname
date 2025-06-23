@@ -1,0 +1,111 @@
+version: "2"
+linters:
+  enable:
+    - asasalint
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - canonicalheader
+    - contextcheck
+    - copyloopvar
+    - decorder
+    - dogsled
+    - dupword
+    - durationcheck
+    - err113
+    - errchkjson
+    - errname
+    - errorlint
+    - exhaustive
+    - fatcontext
+    - ginkgolinter
+    - gocheckcompilerdirectives
+    - gochecknoinits
+    - gochecksumtype
+    - goconst
+    - gocritic
+    - godot
+    - godox
+    - goheader
+    - gomoddirectives
+    - gomodguard
+    - goprintffuncname
+    - gosec
+    - gosmopolitan
+    - grouper
+    - govet
+    - iface
+    - importas
+    - interfacebloat
+    - intrange
+    - ireturn
+    - lll
+    - loggercheck
+    - makezero
+    - mirror
+    - misspell
+    - mnd
+    - musttag
+    - nakedret
+    - nestif
+    - nilerr
+    - nlreturn
+    - noctx
+    - nolintlint
+    - nosprintfhostport
+    - perfsprint
+    - prealloc
+    - predeclared
+    - promlinter
+    - protogetter
+    - reassign
+    - recvcheck
+    - revive
+    - rowserrcheck
+    - sloglint
+    - spancheck
+    - tagalign
+    - tagliatelle
+    - testableexamples
+    - testifylint
+    - testpackage
+    - thelper
+    - unconvert
+    - unparam
+    - usestdlibvars
+    - wastedassign
+    - whitespace
+    - wsl
+    - zerologlint
+  settings:
+    testifylint:
+      enable-all: true
+      disable-all: false
+    govet:
+      enable-all: true
+    iface:
+      enable:
+        - identical
+        - unused
+        - opaque
+    lll:
+      line-length: 300
+      tab-width: 2
+    revive:
+      rules:
+        - name: argument-limit
+          arguments:
+            - 7
+        - name: exported
+formatters:
+  enable:
+    - gofmt
+    - gofumpt
+    - goimports
+  settings:
+    gci:
+      sections:
+        - prefix(github.com/uudashr/pkgname)
+    goimports:
+      local-prefixes:
+        - github.com/uudashr/pkgname
