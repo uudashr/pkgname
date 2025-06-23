@@ -15,6 +15,11 @@ Run the linter
 pkgnamecheck ./...
 ```
 
+Include import alias on the detection:
+```shell
+pkgnamecheck -include-import-alias ./...
+```
+
 # References
 
 > Good package names are short and clear. They are lower case, with no `under_scores` or `mixedCaps`. ...

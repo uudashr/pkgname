@@ -1,9 +1,9 @@
 package hello
 
 import (
-	go_format "fmt" // want "found import 'fmt' with alias 'go_format', should not use under_score in package alias name"
+	go_format "fmt"
 	"log"
-	structLog "log/slog" // want "found import 'log/slog' with alias 'structLog', should not use mixedCaps in package alias name"
+	structLog "log/slog"
 )
 
 func Hello() {

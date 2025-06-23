@@ -11,9 +11,10 @@ import (
 )
 
 // Analyzer analyzes Go idiomatic package naming conventions.
-var Analyzer = newAnalyzer()
+var Analyzer = NewAnalyzer()
 
-func newAnalyzer() *analysis.Analyzer {
+// NewAnalyzer creates a new instance of the pkgname analyzer.
+func NewAnalyzer() *analysis.Analyzer {
 	r := runner{}
 
 	analyzer := &analysis.Analyzer{
@@ -25,12 +26,14 @@ func newAnalyzer() *analysis.Analyzer {
 	}
 
 	analyzer.Flags.BoolVar(&r.debug, "nerd", false, "enable nerd mode")
+	analyzer.Flags.BoolVar(&r.includeImportAlias, "include-import-alias", false, "include import alias in the analysis")
 
 	return analyzer
 }
 
 type runner struct {
-	debug bool
+	debug              bool
+	includeImportAlias bool
 }
 
 func (r *runner) run(pass *analysis.Pass) (any, error) {
@@ -70,6 +73,10 @@ func (r *runner) run(pass *analysis.Pass) (any, error) {
 			pass.Reportf(f.Package, "found package '%s', should not use mixedCaps in package name", pkgName)
 		}
 
+		if !r.includeImportAlias {
+			return
+		}
+
 		for _, imp := range f.Imports {
 			if r.debug {
 				importPath := strings.Trim(imp.Path.Value, "\"")
@@ -81,6 +88,14 @@ func (r *runner) run(pass *analysis.Pass) (any, error) {
 			}
 
 			importName := imp.Name.Name
+
+			if importName == "_" {
+				continue
+			}
+
+			if importName == "." {
+				continue
+			}
 
 			if strings.Contains(importName, "_") {
 				importPath := strings.Trim(imp.Path.Value, "\"")
